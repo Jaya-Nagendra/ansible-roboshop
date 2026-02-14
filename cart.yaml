@@ -63,12 +63,4 @@
       state: restarted
       enabled: yes      
 
-  - name: remove the entire directory
-    ansible.builtin.file:
-      path: /usr/share/nginx/html/
-      state: absent
-
-  - name: create html directory
-    ansible.builtin.file:
-      path: /usr/share/nginx/html/
-      state: directory        
+      
