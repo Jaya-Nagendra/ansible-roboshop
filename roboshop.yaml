@@ -8,7 +8,7 @@
     sg_id: "sg-0567d5e3a3afae3a2" 
     ami_id: "ami-0220d79f3f480ecf5"
     ZONE_ID: "Z0264884DOSR5KP2H7MK"
-    DOMAIN_NAME: "ljnag.space"
+    domain_name: "ljnag.space"
     env: dev
     instances:
     - mongodb
@@ -39,3 +39,13 @@
     ansible.builtin.debug:
       msg: "{{ ec2_output }}"  
       
+  - name: create route53
+    amazon.aws.route53:
+      state: present
+      zone: "{{ domain_name }}"
+      record: "{{ item.item }}-{{ env }}.{{ domain_name }}"
+      type: A
+      ttl: 1
+      value: "{{ item.instances[0].private_ip_address}}"
+      wait: true    
+    loop: "{{ ec2_output.results }}"
