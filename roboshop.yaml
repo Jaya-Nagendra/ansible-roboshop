@@ -1,4 +1,4 @@
-#!/bin/bash
+
 
 - name: create ec2 and route53
   #hosta: all
@@ -22,6 +22,8 @@
     loop:
     - botocore
     - boto3  
+
+    #create
   - name: Create EC2 instance 
     amazon.aws.ec2_instance:
       instance_type: t3.micro
@@ -68,7 +70,19 @@
     - item.item == frontend
     - action == "create"
 
-  - name: create route53
+  - name: delete r53 records for frontend
+    amazon.aws.route53:
+      state: absent
+      zone: "{{ domain_name }}"
+      record: "roboshop-{{ env }}.{{ domain_name }}" # roboshop-dev.daws88s.online
+      type: A
+      ttl: 1
+    loop: "{{ instances }}"
+    when:  # and
+    - item == "frontend"
+    - action == "destroy"
+
+  - name: delete route53
     amazon.aws.route53:
       state: absent
       zone: "{{ domain_name }}"
