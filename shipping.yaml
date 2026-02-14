@@ -72,7 +72,7 @@
     - PyMySQL  
 
   - name: import shipping data
-    commmunity.mysql.mysql_db:
+    community.mysql.mysql_db:
       state: import
       name: all
       login_host: "{{ MYSQL_HOST }}"
