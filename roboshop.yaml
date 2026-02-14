@@ -1,4 +1,4 @@
-
+#   ansible-playbook -i inventory.ini -e "instances=['mongodb','catalogue']" roboshop.yaml
 
 - name: create ec2 and route53
   #hosta: all
