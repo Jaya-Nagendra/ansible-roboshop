@@ -1,5 +1,7 @@
 #   ansible-playbook -i inventory.ini -e "instances=['mongodb','catalogue']" roboshop.yaml
 
+#  ansible-playbook -i inventory.ini -e action=destroy -e "instances=['mongodb','catalogue','redis','user','cart','mysql','shipping','payment','frontend','rabbitmq']" roboshop.yaml
+
 - name: create ec2 and route53
   #hosta: all
   hosts: local
