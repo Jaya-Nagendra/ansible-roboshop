@@ -1,4 +1,4 @@
-#   ansible-playbook -i inventory.ini -e "instances=['mongodb','catalogue']" roboshop.yaml
+#   ansible-playbook -i inventory.ini -e "instances=['mongodb','catalogue','redis','user','cart','mysql','shipping','payment','frontend','rabbitmq']" roboshop.yaml
 
 #  ansible-playbook -i inventory.ini -e action=destroy -e "instances=['mongodb','catalogue','redis','user','cart','mysql','shipping','payment','frontend','rabbitmq']" roboshop.yaml
 
@@ -41,10 +41,10 @@
     register: ec2_output
     when: action == "create"
 
-  - name: print output
-    ansible.builtin.debug:
-      msg: "{{ ec2_output }}"  
-    when: action == "create"  
+  # - name: print output
+  #   ansible.builtin.debug:
+  #     msg: "{{ ec2_output }}"  
+  #   when: action == "create"  
       
   - name: create route53
     amazon.aws.route53:
